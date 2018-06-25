@@ -19,9 +19,7 @@
         <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="jquery.cycle.all.js"></script>
         <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-        <!-- style -->
         <link rel="stylesheet" href="main.css">
-        <!--<link rel=stylesheet type="text/css" href="star_style.css">-->
         <script>
             $(document).ready(function() {
                 //change the kind to all
@@ -193,10 +191,8 @@
                 font-size: 15px;
                 color: #ffffff;
                 font-weight: lighter;
-                /*background-color: #ffffff;*/
             }
             #Sidebar_right{
-                /*background-color:#FFECC9;*/
                 width:120px;
                 height:400px;
                 right:50%;
@@ -205,14 +201,12 @@
                 float:right;
             }
             #header{
-                /*background-color:#FFD4D4;*/
                 height:80px;
                 text-align:center;
                 float:right;
                 top:10%;
                 right:5%;
                 position:absolute;
-                /*line-height:80px;*/
             }
             .rating {
               display: inline-block;
@@ -286,9 +280,6 @@
             }
             #all {
                 background: #fff;
-/*background: -webkit-linear-gradient(to right, #7AA1D2, #DBD4B4, #CC95C0);
-background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
-
             }
         </style>
     </head>
@@ -398,7 +389,6 @@ background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
             $page = intval($_GET['page']);
         }
         $start = ($page-1)*$per;
-        //if($start == 0) $start = 1;
         $sql4 = $sql3.' LIMIT '.$start.', '.$per;
         
         if(isset($_GET['PostIndex'])) {
@@ -428,12 +418,6 @@ background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
                                         <span id = 'people_<?php echo $v['PostIndex'] ?>'>
                                         <?php echo "(".getPeopleNumber($v['PostIndex']).")"; ?>&nbsp;&nbsp;
                                         </span>
-                                        <?php/*
-                                            $sql5 = "SELECT COUNT(RC.UserIndex) FROM rating_record AS RC WHERE RC.PostIndex = '".$v['PostIndex']."'";
-                                            $end = mysqli_query($conn, $sql5);
-                                            $theEnd = mysqli_fetch_row($end);
-                                            echo "(".$theEnd['                                                                                  8'].")";*/
-                                        ?>
                                     </h5>
                                     <?php if(!empty($_SESSION['ID'])) {?>
                                       <h6>
@@ -505,9 +489,7 @@ background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
                             <th colspan="2" style="text-align: center;">
                                 <?php
                                     if($v['Picture'] != null) {
-                                        //$a = "pic/".$v['Picture'];
                                         $pathx = "pic/";
-                                        //$file = $v["filename"];
                                         echo '<img src="'.$pathx.$v["Picture"].'"  width="580">';
                                     }
                                 ?>
@@ -571,48 +553,47 @@ background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
                                                     echo "<p style='text-align:right;color:#a4b8cc;'>";
                                                     echo $c['Time']."</p>"."</h6>";
                                                     $acc++;?>
-        <div style="width: 450px;" id = "replyBlock">
-            <?php if(isset($_SESSION['ID'])) { ?> 
-            <?php
-                $rs = $connect->prepare("SELECT * FROM comment_reply WHERE comment_reply.comment_index = ".$c['CommentIndex']."  ORDER BY comment_reply.date");
-                $rs->execute();
-                $r = $rs->setFetchMode(PDO::FETCH_ASSOC); 
-                $r = $rs->fetchAll();
-                $cc = 0;
+                                                    <div style="width: 450px;" id = "replyBlock">
+                                                        <?php if(isset($_SESSION['ID'])) { ?> 
+                                                        <?php
+                                                            $rs = $connect->prepare("SELECT * FROM comment_reply WHERE comment_reply.comment_index = ".$c['CommentIndex']."  ORDER BY comment_reply.date");
+                                                            $rs->execute();
+                                                            $r = $rs->setFetchMode(PDO::FETCH_ASSOC); 
+                                                            $r = $rs->fetchAll();
+                                                            $cc = 0;
 
-                foreach ($r as $eachReply) {
-                    $cc++;
-                    $rUI = $eachReply['userIndex'];
-                    $rData = $eachReply['data'];
-                    $rDate = $eachReply['date'];
+                                                            foreach ($r as $eachReply) {
+                                                                $cc++;
+                                                                $rUI = $eachReply['userIndex'];
+                                                                $rData = $eachReply['data'];
+                                                                $rDate = $eachReply['date'];
 
-                    $userIDSql = "SELECT * FROM user WHERE user.Idx = ".$rUI;
-                    $userIDResult = mysqli_query($conn, $userIDSql);
-                    $arr = mysqli_fetch_array($userIDResult);
-                    $uesrID = $arr['ID'];
+                                                                $userIDSql = "SELECT * FROM user WHERE user.Idx = ".$rUI;
+                                                                $userIDResult = mysqli_query($conn, $userIDSql);
+                                                                $arr = mysqli_fetch_array($userIDResult);
+                                                                $uesrID = $arr['ID'];
 
-                    echo "<h6 style='text-align:left;background-color:#fff;color:#5f85ac;border:2px #CBB3B3 solid;padding :10px ; clear: right;'>";
-                    echo $uesrID." : ".$rData."<br>";
-                    echo "<p style='text-align:right;color:#a4b8cc; '>";
-                    echo $rDate."</p>"."</h6>";
-                }
-            ?>
-        </div>
-        <form>
-            <input type="text" name="commentReply" id="<?php echo "commentReply_".$c['CommentIndex']; ?>"
-                      style="width:450px;height:40px;color:rgb(159, 180, 214);padding:20px;border:0px blue none; text-align: left; display: none">
-            <input type="button" name="replyButton" id="<?php echo "replyButton_".$c['CommentIndex']; ?>"
-                   value="回覆"  data-id="<?php echo $c['CommentIndex']; ?>" class="reply"
-                   style="width:60px;height:30px;border:0px blue none;color:#fff;background: #a4b0c6;position:relative;float: right;">
-            <input type="button" name="trueReplyButton" id="<?php echo "trueReplyButton_".$c['CommentIndex']; ?>" data-id="<?php echo $c['CommentIndex']; ?>" class="trueReply"
-                   value="留言" 
-                   style="width:60px;height:30px;border:0px blue none;color:#fff;background: #a4b0c6;position:relative;float: right; display: none;">
-            <br><br>
-        </form>
-        <?php } ?>
+                                                                echo "<h6 style='text-align:left;background-color:#fff;color:#5f85ac;border:2px #CBB3B3 solid;padding :10px ; clear: right;'>";
+                                                                echo $uesrID." : ".$rData."<br>";
+                                                                echo "<p style='text-align:right;color:#a4b8cc; '>";
+                                                                echo $rDate."</p>"."</h6>";
+                                                            }
+                                                        ?>
+                                                    </div>
+                                                    <form>
+                                                        <input type="text" name="commentReply" id="<?php echo "commentReply_".$c['CommentIndex']; ?>"
+                                                                  style="width:450px;height:40px;color:rgb(159, 180, 214);padding:20px;border:0px blue none; text-align: left; display: none">
+                                                        <input type="button" name="replyButton" id="<?php echo "replyButton_".$c['CommentIndex']; ?>"
+                                                               value="回覆"  data-id="<?php echo $c['CommentIndex']; ?>" class="reply"
+                                                               style="width:60px;height:30px;border:0px blue none;color:#fff;background: #a4b0c6;position:relative;float: right;">
+                                                        <input type="button" name="trueReplyButton" id="<?php echo "trueReplyButton_".$c['CommentIndex']; ?>" data-id="<?php echo $c['CommentIndex']; ?>" class="trueReply"
+                                                               value="留言" 
+                                                               style="width:60px;height:30px;border:0px blue none;color:#fff;background: #a4b0c6;position:relative;float: right; display: none;">
+                                                        <br><br>
+                                                    </form>
+                                                    <?php } ?>
                                                 <?php }
                                             }
-                                            //#e3768f
                                             if($acc == 0) echo "<p style='text-align: center;color:#4f88f5;'>"."========目前還沒有留言喔！快來搶頭香吧！========"."</p>";
                                         ?>
                                 </th>
@@ -761,14 +742,10 @@ background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
             success: function(data) {
                 var obj = jQuery.parseJSON (data);
                 alert("You give " + stars + " stars.");
-                //alert(obj.rating);
-                //alert(obj.rating);
-                //$('#rating_'+postIndex).text(data);
                 $('#rating_'+postIndex).text(obj.rating);
                 $('#people_'+postIndex).text("("+obj.people+")");
             }
         })
-        //window.location.reload();
     });
     
     $('.reply').on('click', function() {
@@ -792,7 +769,7 @@ background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
                 'text': replyData
             },
             success: function(data) {
-                alert("(。∀°)回覆成功 (。∀°)");
+                alert("回覆成功");
                 history.go(0);
                 $('#commentReply_' + commentIndex).hide();
                 $('#replyButton_' + commentIndex).show();
@@ -818,7 +795,7 @@ background: linear-gradient(to right, #f4fdff, rgb(216, 241, 253), #f4fdff);*/
             },
 
             success: function(data) {
-                alert("(。∀°)留言成功(。∀°)");
+                alert("留言成功");
                 window.location.reload();
             }
         });
