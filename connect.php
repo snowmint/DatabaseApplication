@@ -30,6 +30,8 @@ else if($_POST['pw_admin'] != null && !password_verify($_POST['pw_admin'], $ch))
 }
 else if($_POST['button'] != null){
     if($id != null && $pw != null && $row[1] == $id && password_verify($pw, $row[4])) {
+        $_SESSION['ID'] = $id;
+        $_SESSION['PS'] = $row[4];
         echo "<img src = './pic/lloginsuccess.png' width='90%' style='display:block; margin:auto;'>";
         echo '<meta http-equiv=REFRESH CONTENT=1;url=Top.php>';
     }
