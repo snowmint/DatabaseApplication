@@ -336,19 +336,22 @@
             }
         }
         else {
-            if($_GET['OrderBy'] == 'TimeOld') {
+            if (empty($_GET['OrderBy'])) {
+                $sql3 .= " ORDER BY Time DESC";
+                $_SESSION['OrderBy'] = 'TimeNew';
+            }
+            else if($_GET['OrderBy'] == 'TimeOld') {
                 $sql3 .= " ORDER BY Time";
+                $_SESSION['OrderBy'] = $_GET['OrderBy'];
             }
             else if($_GET['OrderBy'] == 'RatingHigh' ) {
                 $sql3 .= " ORDER BY Stars DESC, Time DESC";
+                $_SESSION['OrderBy'] = $_GET['OrderBy'];
             }
             else if($_GET['OrderBy'] == 'RatingLow') {  
                 $sql3 .= " ORDER BY Stars, Time DESC";
+                $_SESSION['OrderBy'] = $_GET['OrderBy'];
             }
-            else {
-                $sql3 .= " ORDER BY Time DESC";
-            }
-            $_SESSION['OrderBy'] = $_GET['OrderBy'];
         }
         //結束 排序選擇
         ?>
