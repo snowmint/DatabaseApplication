@@ -1,0 +1,44 @@
+
+body {
+    height: 100%;
+    font-family: "Inconsolata", sans-serif;
+    color: black;
+    background: "#rgb(207, 223, 226)";
+}
+
+table {
+	width: 40%;
+	left: 50%;
+	position: static;
+	border-top: 3px #fc9fc2 solid;
+    border-bottom: 3px #86B8F0 solid;
+    margin: 100px auto;
+}
+
+th {
+    background: #466280;
+    color: #FFF;
+    font-family: 'Lato', font-family:DFKai-sb;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 100;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+tr {
+    color: #466280;
+    background: #e1eaf4;
+    border-bottom: 1px solid #FFF;
+    margin-bottom: 5px;
+}
+
+td {
+    font-family: 'Lato', serif;
+    font-style: style="font-family:DFKai-sb";
+    font-weight: 400;
+    padding: 10px;
+    text-align: center;
+
+}

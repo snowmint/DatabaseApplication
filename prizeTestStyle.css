@@ -1,0 +1,65 @@
+#all {
+    background: #7ec4d1;
+    background: -webkit-linear-gradient(to right, #185a9d, #7ec4d1);/* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #185a9d, #7ec4d1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.flipBlock{
+	height: 220px;
+	width: 490px;
+
+	position: absolute;
+	top: 50%;
+	left: 25%;
+	
+}
+
+.flip-container {
+    height: 200px;
+    width: 150px;
+    
+    perspective: 600;
+    position: relative;
+	display: inline;
+}
+.flipper {
+    height: 200px;
+    width: 150px;
+    
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+.back, .front {
+    height: 200px;
+    width: 150px;
+    
+    display: block;
+    position: absolute;
+    text-align: center;
+    line-height: 100px;
+    backface-visibility: hidden;
+}
+.front {
+    /*background-color: #EED3D3;*/
+}
+.back {
+    /*background-color: #E4B9E2;*/
+    transform: rotateY(180deg);
+}
+.flipped {
+    animation: spin180 1s 1 forwards;
+}
+.second-flip {
+    animation: spin360 1s 1 forwards;
+}
+
+@keyframes spin180 {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(180deg); }
+}
+
+@keyframes spin360 {
+    0% { transform: rotateY(180deg); }
+    100% { transform: rotateY(360deg); }
+}
